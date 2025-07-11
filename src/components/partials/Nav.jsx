@@ -1,6 +1,11 @@
 import React from "react";
+import { FaTimes } from "react-icons/fa";
 
 const Nav = () => {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   return (
     <>
       {" "}
@@ -28,9 +33,60 @@ const Nav = () => {
               Contact
             </a>
           </div>
-          <button className='md:hidden text-2xl'>☰</button>
+          <button className='md:hidden text-2xl' onClick={toggleMenu}>
+            {isMenuOpen ? <FaTimes /> : "☰"}
+          </button>
         </div>
       </nav>
+      <div
+        className={`
+        fixed inset-0 bg-blue-800 z-40 flex flex-col items-center justify-center
+        transition-all duration-300 ease-in-out
+        ${
+          isMenuOpen
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-full pointer-events-none"
+        }
+      `}
+      >
+        <div className='flex flex-col items-center space-y-8 text-white text-2xl'>
+          <a
+            href='#home'
+            className='hover:text-blue-200 transition'
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Home
+          </a>
+          <a
+            href='#spots'
+            className='hover:text-blue-200 transition'
+            onClick={() => setIsMenuOpen(false)}
+          >
+           Fishing Spots
+          </a>
+          <a
+            href='#gear'
+            className='hover:text-blue-200 transition'
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Gear Guide
+          </a>
+          <a
+            href='#tips'
+            className='hover:text-blue-200 transition'
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Tips
+          </a>
+          <a
+            href='#contact'
+            className='hover:text-blue-200 transition'
+            onClick={() => setIsMenuOpen(false)}
+          >
+           Contact
+          </a>
+        </div>
+      </div>
     </>
   );
 };
